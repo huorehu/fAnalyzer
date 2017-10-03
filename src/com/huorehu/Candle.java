@@ -8,6 +8,8 @@ public class Candle {
 	private static final int BEGIN_TIME_INDEX = 11;
 	private static final int END_TIME_INDEX = 16;
 	
+	private static final int DOT_NUMBER_INDEX = 2;
+	
 	private final String date;
 	private final String time;
 	
@@ -57,7 +59,7 @@ public class Candle {
 	}
 	
 	private String deleteDot(String str) {
-		return "1" + str.substring(2);
+		return "1" + str.substring(DOT_NUMBER_INDEX);
 	}
 	
 }
