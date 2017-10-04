@@ -1,4 +1,4 @@
-package com.huorehu;
+package com.huorehu.fanalyzer.model;
 
 public class Candle {
 	
