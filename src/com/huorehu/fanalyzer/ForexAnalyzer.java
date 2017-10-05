@@ -5,21 +5,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huorehu.fanalyzer.controller.DayAnalyzer;
 import com.huorehu.fanalyzer.model.Candle;
 import com.huorehu.fanalyzer.model.TradingDay;
 import com.huorehu.fanalyzer.strategies.StrategyModel;
 import com.opencsv.CSVReader;
 
-public class ForexAnalyzer {
+public class ForexAnalyzer implements DayAnalyzer, DataLoader {
 	
 	private List<TradingDay> bankTradingDay = new ArrayList<>();
-	private String analyzedData;
 	private StrategyModel strategy;
 	
-	public ForexAnalyzer(final String analyzedData, final StrategyModel strategy) throws IOException {
-		this.analyzedData = analyzedData;
+	public ForexAnalyzer(final String analyzedDataPath, final StrategyModel strategy) throws IOException {
 		this.strategy = strategy;
-		loadDataToBankTradingDay();
+		loadData(analyzedDataPath);
 	}
 	
 	public void start() throws IOException {
@@ -38,8 +37,9 @@ public class ForexAnalyzer {
 		
 	}
 	
-	private void loadDataToBankTradingDay() throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(analyzedData));
+	@Override
+	public void loadData(final String analyzedDataPath) throws IOException {
+		CSVReader reader = new CSVReader(new FileReader(analyzedDataPath));
 		String[] nextLine;
 		Candle candle;
 		TradingDay trDay = new TradingDay();
@@ -55,6 +55,12 @@ public class ForexAnalyzer {
 		}
 	}
 	
+	@Override
+	public void analyzeDay(TradingDay trDay, StrategyModel strategy) {
+		// TODO
+		
+	}
+	
 	private boolean checkFormationTradingDay(final TradingDay trDay, final Candle candle) {
 		if (getCandleHours(trDay.getLastCandle()).equals("23") 
 				&& getCandleHours(candle).equals("00")) {
@@ -66,5 +72,6 @@ public class ForexAnalyzer {
 	private String getCandleHours(final Candle candle) {
 		return candle.getTime().substring(0, 2);
 	}
+
 
 }

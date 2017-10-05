@@ -9,10 +9,10 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		
-		final String analyzedData = "eurusd_year.csv";
+		final String analyzedDataPath = "eurusd_year.csv";
 		
 		StrategyModel strategy = new MyStrategy();
-		ForexAnalyzer fAnalyzer = new ForexAnalyzer(analyzedData, strategy);
+		ForexAnalyzer fAnalyzer = new ForexAnalyzer(analyzedDataPath, strategy);
 		try {
 			fAnalyzer.start();
 		} catch (IOException e) {
