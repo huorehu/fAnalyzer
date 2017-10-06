@@ -1,4 +1,4 @@
-package com.huorehu.fanalyzer;
+package com.huorehu.fanalyzer.controller;
 
 import java.io.IOException;
 

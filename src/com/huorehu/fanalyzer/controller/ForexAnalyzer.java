@@ -1,23 +1,25 @@
-package com.huorehu.fanalyzer;
+package com.huorehu.fanalyzer.controller;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.huorehu.fanalyzer.controller.DayAnalyzer;
+import com.huorehu.fanalyzer.ui.AnalyzeShower;
 import com.huorehu.fanalyzer.model.Candle;
 import com.huorehu.fanalyzer.model.TradingDay;
 import com.huorehu.fanalyzer.strategies.StrategyModel;
 import com.opencsv.CSVReader;
 
-public class ForexAnalyzer implements DayAnalyzer, DataLoader {
+public class ForexAnalyzer implements DataLoader {
 	
 	private List<TradingDay> bankTradingDay = new ArrayList<>();
 	private StrategyModel strategy;
+	private AnalyzeShower shower;
 	
-	public ForexAnalyzer(final String analyzedDataPath, final StrategyModel strategy) throws IOException {
+	public ForexAnalyzer(final String analyzedDataPath, final StrategyModel strategy, AnalyzeShower shower) throws IOException {
 		this.strategy = strategy;
+		this.shower = shower;
 		loadData(analyzedDataPath);
 	}
 	
@@ -34,6 +36,8 @@ public class ForexAnalyzer implements DayAnalyzer, DataLoader {
 		}
 		
 		System.out.println(trDay.getCandleByTime("21:00").getOpen());
+		
+		shower.showDayGraph(trDay, strategy);
 		
 	}
 	
@@ -53,12 +57,6 @@ public class ForexAnalyzer implements DayAnalyzer, DataLoader {
 				
 			trDay.addCandle(candle);
 		}
-	}
-	
-	@Override
-	public void analyzeDay(TradingDay trDay, StrategyModel strategy) {
-		// TODO
-		
 	}
 	
 	private boolean checkFormationTradingDay(final TradingDay trDay, final Candle candle) {
