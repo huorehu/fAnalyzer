@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		int windowHeight = 800;
-		int windowWidth = 600;
+		int windowWidth = 1600;
 		String analyzedDataPath = "eurusd_year.csv";
 		
 		StrategyModel strategy = new MyStrategy();
