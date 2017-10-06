@@ -71,7 +71,7 @@ public class Candle {
 		if (price.length() < 6) {
 			surplusChars = 6 - price.length();
 		}
-		return Integer.parseInt(price) * (int)(Math.pow(10, surplusChars)) / 10;
+		return (Integer.parseInt(price) * (int)(Math.pow(10, surplusChars)) / 10);
 	}
 	
 }

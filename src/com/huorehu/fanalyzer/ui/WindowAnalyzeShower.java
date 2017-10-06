@@ -1,5 +1,6 @@
 package com.huorehu.fanalyzer.ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -56,6 +57,12 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 		
 		private void drawScale() {
 			getGraphics2D().setColor(Color.blue);
+			
+			getGraphics2D().setStroke(new BasicStroke(2));
+			getGraphics2D().drawLine(0, height / 2 - 10, width, height / 2 - 10);
+			getGraphics2D().drawLine(5, 0, 5, height);
+			
+			getGraphics2D().setStroke(new BasicStroke(1));
 			getGraphics2D().drawLine(0, height / 2, width, height / 2);
 			getGraphics2D().drawLine(5, 0, 5, height);
 		}
@@ -71,7 +78,7 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 				if (isLastPrice(i, lineSize)) {
 					return;
 				}
-				getGraphics2D().drawLine(i + 5, visualZero + getPrice(i) - correctiveX, i + 5 + scaleStep, visualZero + getPrice(i + 1) - correctiveX);
+				getGraphics2D().drawLine(i + 5, visualZero + correctiveX - getPrice(i), i + 5 + scaleStep, visualZero + correctiveX - getPrice(i + 1));
 			}
 		}
 		
@@ -91,7 +98,8 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 			if (trDay.getCandlesList().get(index).getTime().equals("17:00")
 					|| trDay.getCandlesList().get(index).getTime().equals("18:00")
 					|| trDay.getCandlesList().get(index).getTime().equals("19:00")
-					|| trDay.getCandlesList().get(index).getTime().equals("21:00")) {
+					|| trDay.getCandlesList().get(index).getTime().equals("21:00")
+					|| trDay.getCandlesList().get(index).getTime().equals("08:00")) {
 				getGraphics2D().drawLine(index, 0, index, height);
 			}
 			
