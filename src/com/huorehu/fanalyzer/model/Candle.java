@@ -10,24 +10,18 @@ public class Candle {
 	
 	private static final int DOT_NUMBER_INDEX = 2;
 	
-	private final String date;
-	private final String time;
+	private String date;
+	private String time;
 	
-	private final int open;
-	private final int close;
-	private final int high;
-	private final int low;
+	private int open;
+	private int close;
+	private int high;
+	private int low;
 	
-	private final int volume;
+	private int volume;
 
-	public Candle(final String[] timeframe) {
-		this.date = timeframe[0].substring(BEGIN_DATE_INDEX, END_DATE_INDEX);
-		this.time = timeframe[0].substring(BEGIN_TIME_INDEX, END_TIME_INDEX);
-		this.open = Integer.parseInt(deleteDot(timeframe[1]));
-		this.close = Integer.parseInt(deleteDot(timeframe[2]));
-		this.high = Integer.parseInt(deleteDot(timeframe[3]));
-		this.low = Integer.parseInt(deleteDot(timeframe[4]));
-		this.volume = Integer.parseInt(timeframe[5]);
+	public Candle(String[] timeframe) {
+		initializeCandle(timeframe);
 	}
 
 	public String getDate() {
@@ -58,8 +52,26 @@ public class Candle {
 		return volume;
 	}
 	
-	private String deleteDot(String str) {
-		return "1" + str.substring(DOT_NUMBER_INDEX);
+	private void initializeCandle(String[] timeframe) {
+		this.date = timeframe[0].substring(BEGIN_DATE_INDEX, END_DATE_INDEX);
+		this.time = timeframe[0].substring(BEGIN_TIME_INDEX, END_TIME_INDEX);
+		this.open = formationPrice(timeframe[1]);
+		this.close = formationPrice(timeframe[2]);
+		this.high = formationPrice(timeframe[3]);
+		this.low = formationPrice(timeframe[4]);
+		this.volume = Integer.parseInt(timeframe[5]);
+	}
+	
+	private int formationPrice(String str) {
+		return correctQuantityChar("1" + str.substring(DOT_NUMBER_INDEX));
+	}
+	
+	private int correctQuantityChar(String price) {
+		int surplusChars = 0;
+		if (price.length() < 6) {
+			surplusChars = 6 - price.length();
+		}
+		return Integer.parseInt(price) * (int)(Math.pow(10, surplusChars));
 	}
 	
 }
