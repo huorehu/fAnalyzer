@@ -18,6 +18,7 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 	private TradingDay trDay;
 	
 	private int scaleStep;
+	Graphics2D gr2;
 	
 	public WindowAnalyzeShower(final int height, final int width) {
 		this.height = height;
@@ -42,31 +43,35 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 			super.paint(g);
 			drawGraph(g);
 		}
+		
+		public Graphics2D getGraphics2D() {
+			return gr2;
+		}
 
 		private void drawGraph(Graphics g) {
-			Graphics2D gr2 = (Graphics2D) g;
-			drawScale(gr2);
-			drawGraphLine(gr2);
+			gr2 = (Graphics2D) g;
+			drawScale();
+			drawGraphLine();
 		}
 		
-		private void drawScale(Graphics2D gr2) {
-			gr2.setColor(Color.blue);
-			gr2.drawLine(0, height / 2, width, height / 2);
-			gr2.drawLine(5, 0, 5, height);
+		private void drawScale() {
+			getGraphics2D().setColor(Color.blue);
+			getGraphics2D().drawLine(0, height / 2, width, height / 2);
+			getGraphics2D().drawLine(5, 0, 5, height);
 		}
 		
-		private void drawGraphLine(Graphics2D gr2) {
+		private void drawGraphLine() {
 			int lineSize = trDay.getCandlesList().size();
 			int correctiveX = getPrice(0);
 			int visualZero = height / 2;
 			
-			gr2.setColor(Color.red);
+			getGraphics2D().setColor(Color.red);
 			
 			for (int i = 0; i < lineSize; i++) {
 				if (isLastPrice(i, lineSize)) {
 					return;
 				}
-				gr2.drawLine(i + 5, visualZero + getPrice(i) - correctiveX, i + 5 + scaleStep, visualZero + getPrice(i + 1) - correctiveX);
+				getGraphics2D().drawLine(i + 5, visualZero + getPrice(i) - correctiveX, i + 5 + scaleStep, visualZero + getPrice(i + 1) - correctiveX);
 			}
 		}
 		
@@ -78,7 +83,18 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 		}
 		
 		private int getPrice(int index) {
+			checkControlPoint(index);
 			return trDay.getCandlesList().get(index).getOpen();
+		}
+
+		private void checkControlPoint(int index) {
+			if (trDay.getCandlesList().get(index).getTime().equals("17:00")
+					|| trDay.getCandlesList().get(index).getTime().equals("18:00")
+					|| trDay.getCandlesList().get(index).getTime().equals("19:00")
+					|| trDay.getCandlesList().get(index).getTime().equals("21:00")) {
+				getGraphics2D().drawLine(index, 0, index, height);
+			}
+			
 		}
 
 	}
