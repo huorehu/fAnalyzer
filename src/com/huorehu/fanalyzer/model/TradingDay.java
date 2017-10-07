@@ -6,10 +6,7 @@ import java.util.List;
 public class TradingDay {
 	
 	private List<Candle> candlesList = new ArrayList<>();
-	
-	public TradingDay() {
-		
-	}
+	private String date;
 	
 	public void addCandle(final Candle candle) {
 		candlesList.add(candle);
@@ -33,6 +30,14 @@ public class TradingDay {
 	
 	public List<Candle> getCandlesList() {
 		return candlesList;
+	}
+	
+	public void initializeDayDate() {
+		this.date = candlesList.get(0).getDate();
+	}
+	
+	public String getDate() {
+		return date;
 	}
 
 }

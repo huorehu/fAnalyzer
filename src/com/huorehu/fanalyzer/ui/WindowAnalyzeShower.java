@@ -59,12 +59,24 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 			getGraphics2D().setColor(Color.blue);
 			
 			getGraphics2D().setStroke(new BasicStroke(2));
-			getGraphics2D().drawLine(0, height / 2 - 10, width, height / 2 - 10);
-			getGraphics2D().drawLine(5, 0, 5, height);
-			
-			getGraphics2D().setStroke(new BasicStroke(1));
 			getGraphics2D().drawLine(0, height / 2, width, height / 2);
 			getGraphics2D().drawLine(5, 0, 5, height);
+			
+			getGraphics2D().setColor(Color.yellow);
+			getGraphics2D().setStroke(new BasicStroke(1));
+			getGraphics2D().drawLine(0, height / 2 - 10 * 5, width, height / 2 - 10 * 5);
+			getGraphics2D().drawLine(5, 0, 5, height);
+			
+			getGraphics2D().drawLine(0, height / 2 + 10 * 5, width, height / 2 + 10 * 5);
+			getGraphics2D().drawLine(5, 0, 5, height);
+			
+			getGraphics2D().setColor(Color.green);
+			getGraphics2D().drawLine(0, height / 2 - 20 * 5, width, height / 2 - 20 * 5);
+			getGraphics2D().drawLine(5, 0, 5, height);
+			
+			getGraphics2D().drawLine(0, height / 2 + 20 * 5, width, height / 2 + 20 * 5);
+			getGraphics2D().drawLine(5, 0, 5, height);
+			
 		}
 		
 		private void drawGraphLine() {

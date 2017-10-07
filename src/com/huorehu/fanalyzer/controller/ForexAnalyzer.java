@@ -4,20 +4,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.huorehu.fanalyzer.ui.AnalyzeShower;
 import com.huorehu.fanalyzer.model.Candle;
 import com.huorehu.fanalyzer.model.TradingDay;
+import com.huorehu.fanalyzer.strategies.MyStrategy;
 import com.huorehu.fanalyzer.strategies.StrategyModel;
 import com.opencsv.CSVReader;
 
 public class ForexAnalyzer implements DataLoader {
 	
 	private List<TradingDay> bankTradingDay = new ArrayList<>();
-	private StrategyModel strategy;
+	private MyStrategy strategy;
 	private AnalyzeShower shower;
 	
-	public ForexAnalyzer(final String analyzedDataPath, final StrategyModel strategy, AnalyzeShower shower) throws IOException {
+	public ForexAnalyzer(final String analyzedDataPath, MyStrategy strategy, AnalyzeShower shower) throws IOException {
 		this.strategy = strategy;
 		this.shower = shower;
 		loadData(analyzedDataPath);
@@ -25,20 +27,13 @@ public class ForexAnalyzer implements DataLoader {
 	
 	public void start() throws IOException {
 		
-		TradingDay trDay;
-		
-		System.out.println("Formed TradingDay");
-		trDay = bankTradingDay.get(4);
-		int i = 0;
-		for (Candle c : trDay.getCandlesList()) {
-			System.out.println("TickNumber " + i + " #" + c.getVolume());
-			i++;
+		for (TradingDay trDay : bankTradingDay) {
+			System.out.print("Current day " + trDay.getDate());
+			System.out.println(" " + strategy.getMaxPricePerControl());
+			shower.showDayGraph(trDay, strategy);
+			Scanner sc = new Scanner(System.in);
+			sc.nextLine();
 		}
-		
-		System.out.println(trDay.getCandleByTime("21:00").getOpen());
-		
-		shower.showDayGraph(trDay, strategy);
-		
 	}
 	
 	@Override
@@ -51,6 +46,8 @@ public class ForexAnalyzer implements DataLoader {
 		while((nextLine = reader.readNext()) != null) {
 			candle = new Candle(nextLine);
 			if (trDay.getCandlesList().size() > 0 && checkFormationTradingDay(trDay, candle)) {
+				trDay.initializeDayDate();
+				strategy.analyze(trDay);
 				bankTradingDay.add(trDay);
 				trDay = new TradingDay();
 			}

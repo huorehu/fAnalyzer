@@ -6,7 +6,6 @@ import com.huorehu.fanalyzer.ui.AnalyzeShower;
 import com.huorehu.fanalyzer.ui.WindowAnalyzeShower;
 import com.huorehu.fanalyzer.controller.ForexAnalyzer;
 import com.huorehu.fanalyzer.strategies.MyStrategy;
-import com.huorehu.fanalyzer.strategies.StrategyModel;
 
 public class Main {
 	
@@ -16,7 +15,7 @@ public class Main {
 		int windowWidth = 1600;
 		String analyzedDataPath = "eurusd_year.csv";
 		
-		StrategyModel strategy = new MyStrategy();
+		MyStrategy strategy = new MyStrategy();
 		AnalyzeShower shower = new WindowAnalyzeShower(windowHeight, windowWidth);
 		ForexAnalyzer fAnalyzer = new ForexAnalyzer(analyzedDataPath, strategy, shower);
 		try {
