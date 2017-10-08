@@ -23,11 +23,11 @@ public class MyStrategy implements StrategyModel {
 		if (maxPricePerControl != -1) {
 			return maxPricePerControl;
 		}
-		int maxPrice = trDay.getCandlesList().get(0).getOpen() / 5;
+		int maxPrice = trDay.getCandlesList().get(0).getOpen();
 		
 		for (Candle candle : trDay.getCandlesList()) {
 			if ((Integer.parseInt(candle.getTime().substring(0, 2)) < 17) && maxPrice < candle.getOpen()) {
-				maxPrice = candle.getOpen() / 5;
+				maxPrice = candle.getOpen();
 			}
 		}
 		return maxPrice;

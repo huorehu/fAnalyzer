@@ -10,8 +10,6 @@ public class Candle {
 	
 	private static final int DOT_NUMBER_INDEX = 2;
 	
-	private static final int SCALE = 5;
-	
 	private String date;
 	private String time;
 	
@@ -73,7 +71,7 @@ public class Candle {
 		if (price.length() < 6) {
 			surplusChars = 6 - price.length();
 		}
-		return ((Integer.parseInt(price) * (int)(Math.pow(10, surplusChars)) / 10) * SCALE);
+		return ((Integer.parseInt(price) * (int)(Math.pow(10, surplusChars))) / 10);
 	}
 	
 }

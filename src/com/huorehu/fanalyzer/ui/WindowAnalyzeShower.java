@@ -13,6 +13,8 @@ import com.huorehu.fanalyzer.strategies.StrategyModel;
 
 public class WindowAnalyzeShower implements AnalyzeShower {
 	
+	private static final int SCALE = 5;
+	
 	private int height;
 	private int width;
 	
@@ -64,17 +66,17 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 			
 			getGraphics2D().setColor(Color.yellow);
 			getGraphics2D().setStroke(new BasicStroke(1));
-			getGraphics2D().drawLine(0, height / 2 - 10 * 5, width, height / 2 - 10 * 5);
+			getGraphics2D().drawLine(0, height / 2 - 10 * SCALE, width, height / 2 - 10 * SCALE);
 			getGraphics2D().drawLine(5, 0, 5, height);
 			
-			getGraphics2D().drawLine(0, height / 2 + 10 * 5, width, height / 2 + 10 * 5);
+			getGraphics2D().drawLine(0, height / 2 + 10 * SCALE, width, height / 2 + 10 * SCALE);
 			getGraphics2D().drawLine(5, 0, 5, height);
 			
 			getGraphics2D().setColor(Color.green);
-			getGraphics2D().drawLine(0, height / 2 - 20 * 5, width, height / 2 - 20 * 5);
+			getGraphics2D().drawLine(0, height / 2 - 20 * SCALE, width, height / 2 - 20 * SCALE);
 			getGraphics2D().drawLine(5, 0, 5, height);
 			
-			getGraphics2D().drawLine(0, height / 2 + 20 * 5, width, height / 2 + 20 * 5);
+			getGraphics2D().drawLine(0, height / 2 + 20 * SCALE, width, height / 2 + 20 * SCALE);
 			getGraphics2D().drawLine(5, 0, 5, height);
 			
 		}
@@ -90,7 +92,7 @@ public class WindowAnalyzeShower implements AnalyzeShower {
 				if (isLastPrice(i, lineSize)) {
 					return;
 				}
-				getGraphics2D().drawLine(i + 5, visualZero + correctiveX - getPrice(i), i + 5 + scaleStep, visualZero + correctiveX - getPrice(i + 1));
+				getGraphics2D().drawLine(i + 5, visualZero + (correctiveX - getPrice(i)) * SCALE, i + 5 + scaleStep, visualZero + (correctiveX - getPrice(i + 1)) * SCALE);
 			}
 		}
 		
