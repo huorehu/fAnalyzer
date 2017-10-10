@@ -7,6 +7,7 @@ public class MyStrategy implements StrategyModel {
 	
 	private int startPrice = -1;
 	private int maxPricePerControl = -1;
+	private String timeMaxControl;
 	private int minPricePerControl = -1;
 	
 	private int maxPricePerWork = -1;
@@ -28,9 +29,14 @@ public class MyStrategy implements StrategyModel {
 		for (Candle candle : trDay.getCandlesList()) {
 			if ((Integer.parseInt(candle.getTime().substring(0, 2)) < 17) && maxPrice < candle.getOpen()) {
 				maxPrice = candle.getOpen();
+				timeMaxControl = candle.getTime();
 			}
 		}
 		return maxPrice;
+	}
+	
+	public String getTimeMaxControl() {
+		return timeMaxControl;
 	}
 
 	public int getMinPricePerControl() {

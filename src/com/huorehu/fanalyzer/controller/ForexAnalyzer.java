@@ -29,7 +29,7 @@ public class ForexAnalyzer implements DataLoader {
 		
 		for (TradingDay trDay : bankTradingDay) {
 			System.out.print("Current day " + trDay.getDate());
-			System.out.println(" " + strategy.getMaxPricePerControl());
+			System.out.println(" " + strategy.getMaxPricePerControl() + " " + strategy.getTimeMaxControl());
 			shower.showDayGraph(trDay, strategy);
 			Scanner sc = new Scanner(System.in);
 			sc.nextLine();
