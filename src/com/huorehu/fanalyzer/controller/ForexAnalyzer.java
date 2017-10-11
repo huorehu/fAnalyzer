@@ -27,13 +27,13 @@ public class ForexAnalyzer implements DataLoader {
 	
 	public void start() throws IOException {
 		
-		for (TradingDay trDay : bankTradingDay) {
-			System.out.print("Current day " + trDay.getDate());
-			System.out.println(" " + strategy.getMaxPricePerControl() + " " + strategy.getTimeMaxControl());
-			shower.showDayGraph(trDay, strategy);
-			Scanner sc = new Scanner(System.in);
-			sc.nextLine();
-		}
+		TradingDay trDay = bankTradingDay.get(0);
+		strategy.analyze(trDay);
+		System.out.print("Current day " + trDay.getDate());
+		System.out.println(" " + strategy.getMaxPricePerControl() + " " + strategy.getTimeMaxControl());
+		shower.showDayGraph(trDay, strategy);
+		Scanner sc = new Scanner(System.in);
+		sc.nextLine();
 	}
 	
 	@Override

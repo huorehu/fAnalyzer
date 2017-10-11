@@ -1,5 +1,7 @@
 package com.huorehu.fanalyzer.strategies;
 
+import java.util.List;
+
 import com.huorehu.fanalyzer.model.Candle;
 import com.huorehu.fanalyzer.model.TradingDay;
 
@@ -25,10 +27,14 @@ public class MyStrategy implements StrategyModel {
 			return maxPricePerControl;
 		}
 		int maxPrice = trDay.getCandlesList().get(0).getOpen();
-		
-		for (Candle candle : trDay.getCandlesList()) {
-			if ((Integer.parseInt(candle.getTime().substring(0, 2)) < 17) && maxPrice < candle.getOpen()) {
+		List<Candle> candleList = trDay.getCandlesList();
+		for (Candle candle : candleList) {
+			if (!candle.getTime().equals("17:00") && maxPrice < candle.getOpen()) {
+				if (candle.getTime().equals("17:01")) {
+					return maxPrice;
+				}
 				maxPrice = candle.getOpen();
+				System.out.println(maxPrice + "%%%");
 				timeMaxControl = candle.getTime();
 			}
 		}
